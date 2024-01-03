@@ -3,19 +3,18 @@ import { FaRegHeart } from "react-icons/fa";
 import { AiOutlineMessage } from "react-icons/ai";
 import User from "@/components/user";
 import Link from "next/link";
-import Post from "@/components/post";
+import Post, { TweetRenderer } from "@/components/post";
+import Reply from "@/components/reply";
 
-export default function Home() {
+export default function PostPage() {
+  const posts = [1, 2, 3, 4, 5, 6];
   const tweet = `
-  Day 07 of the challenge #100daysofCode I was
-  wondering what I can do with , so just
-  started building Twitter UI using Tailwind and so far it looks
-  so promising. I will post my code after completion. [07/100]
-  #WomenWhoCode #CodeNewbie
+    Day 07 of the challenge #100daysofCode I was
+    wondering what I can do with , so just
+    started building Twitter UI using Tailwind and so far it looks
+    so promising. I will post my code after completion. [07/100]
+    #WomenWhoCode #CodeNewbie
 `;
-  const post ={name:"Jash Agrawal" , username:"@jashagrawal" ,date:"06 April",text:tweet}
-  const posts = [post,post,post,post,post];
- 
   return (
     <div className="bg-blue-900 text-white p-8">
       <div className="flex">
@@ -53,22 +52,39 @@ export default function Home() {
                 />
               </div>
               <div className="flex-1 px-2 pt-2 mt-2">
-                <textarea
-                  className="bg-transparent text-gray-400 font-medium text-lg w-full p-2"
-                  rows={3}
-                  cols={50}
-                  placeholder="What's happening?"
-                />
+                {/* <div className="pl-14"> */}
+                <TweetRenderer tweet={tweet} />
+                <div className="flex my-5">
+                  <div className="w-full">
+                    <div className="flex items-center w-full space-x-8">
+                      <div>
+                        {/* <BiMessageRoundedDetail size={30}/> */}
+                        <AiOutlineMessage size={26} />
+                      </div>
+
+                      <div>
+                        <FaRegHeart size={26} />
+                      </div>
+                    </div>
+                    {/* </div> */}
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="flex-1">
-              <button className="bg-blue-400 mt-5 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded-full mr-4 float-right">
-                Post
-              </button>
-            </div>
           </div>
-          {posts.map((post:any, index) => (
-           <Post key={index} post={post}/>
+          <div className="py-2 w-full px-4">
+            <p className="font-semibold ">Comments</p>
+          </div>
+          {posts.map((post: any, index) => (
+            <Reply
+              key={index}
+              post={{
+                name: "Jash Agrawa",
+                username: "@jashagrawal",
+                date: "06 April",
+                text: tweet,
+              }}
+            />
           ))}
         </div>
       </div>
