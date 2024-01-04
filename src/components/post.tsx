@@ -1,3 +1,4 @@
+import moment from "moment";
 import Link from "next/link";
 import React from "react";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -5,19 +6,22 @@ import { FaRegHeart } from "react-icons/fa";
 
 export const TweetRenderer = ({ tweet }: { tweet: string }) => {
   const renderTextWithHashtags = () => {
-    const parts = tweet.split(/(#[^\s]+)/g);
+    if (tweet) {
+      const parts = tweet.split(/(#[^\s]+)/g);
 
-    return parts.map((part, index) => {
-      if (part.startsWith("#")) {
-        return (
-          <span key={index} className="text-blue-400">
-            {part}
-          </span>
-        );
-      }
+      return parts.map((part, index) => {
+        if (part.startsWith("#")) {
+          return (
+            <span key={index} className="text-blue-400">
+              {part}
+            </span>
+          );
+        }
 
-      return part;
-    });
+        return part;
+      });
+    }
+    return <p>{tweet}</p>;
   };
   return (
     // <div className="pl-14">
@@ -47,9 +51,10 @@ const Post = ({ post }: { post: any }) => {
           </div>
           <div className="ml-3">
             <p className="text-base leading-6 font-medium text-white">
-              {post.name || "Jash Agrawal"}
+              {post.userId.Name || "Jash Agrawal"}
               <span className="text-sm leading-5 ml-2 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
-                {post.username || "@JashAgrawal"} . {post.date || "16 April"}
+                {/* {post.Email || "agrawal@gmail.com"}  */}(
+                {moment(post.createdAt).format("D MMM YY") || "16 April"})
               </span>
             </p>
           </div>
